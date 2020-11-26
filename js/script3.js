@@ -244,7 +244,7 @@ lights.point = new THREE.PointLight(0xFFC02f, 2);
     
   //Load meshes here
     const loader = new THREE.GLTFLoader();
-  loader.load('./vending_machine_model_min2.glb', function(object){
+  loader.load('./vending_machine_model_min2.glb.txt', function(object){
     object.scene.traverse(function(child){
         if (child.isMesh){  
           child.castShadow = true;
