@@ -14,7 +14,7 @@ function init(){
   camera.position.set(-0.026,1,6);
 
   renderer = new THREE.WebGLRenderer({canvas, antialias: true});
-  renderer.setSize( window.innerWidth, window.innerHeight );
+  //renderer.setSize( window.innerWidth, window.innerHeight );
   
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
@@ -230,7 +230,7 @@ lights.point = new THREE.PointLight(0xFFC02f, 2);
 //    scene.add(spotS3CamHelper);
   
    controls = new THREE.OrbitControls( camera, renderer.domElement );
-  controls.target.set(-0.026,1.2,0);
+   controls.target.set(-0.026,1.2,0);
   
     
     raycaster = new THREE.Raycaster();
@@ -289,29 +289,49 @@ lights.point = new THREE.PointLight(0xFFC02f, 2);
     renderer.gammaFactor = 2.2;
     renderer.setClearColor(0x000000);
 
-  window.addEventListener( 'resize', resize, false);
+    //window.addEventListener( 'resize', resize, false);
     renderer.domElement.addEventListener('mousemove', onMouseMove, false);
     
     renderer.domElement.addEventListener('touchstart', onTouch,false);
     
   
   render();
+    requestAnimationFrame(render);
 
 }
+  
+function resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    if (needResize) {
+      renderer.setSize(width, height, false);
+    }
+    return needResize;
+  }
 
 
 function render(){
-    requestAnimationFrame(render);
-    controls.update();
+//    requestAnimationFrame(render);
+//    controls.update();
+//    renderer.render(scene, camera);
+    if (resizeRendererToDisplaySize(renderer)) {
+      const canvas = renderer.domElement;
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      camera.updateProjectionMatrix();
+    }
+    
     renderer.render(scene, camera);
-        
+    controls.update();
+    requestAnimationFrame(render);
 }
 
-function resize(){
-  camera.aspect = canvas.clientWidth / canvas.clientHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize( canvas.clientWidth, canvas.clientHeight );
-}
+//function resize(){
+//  camera.aspect = window.innerWidth / window.innerHeight;
+//  camera.updateProjectionMatrix();
+//  renderer.setSize( canvas.clientWidth, canvas.clientHeight );
+//}
 
 function getRelativePosition(event){
     const rect = canvas.getBoundingClientRect();
