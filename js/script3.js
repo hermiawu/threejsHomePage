@@ -14,7 +14,7 @@ function init(){
   camera.position.set(-0.026,1,6);
 
   renderer = new THREE.WebGLRenderer({canvas, antialias: true});
-  renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.setSize( canvas.clientWidth, canvas.clientHeight );
   
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
